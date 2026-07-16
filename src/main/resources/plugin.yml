@@ -1,0 +1,10 @@
+name: Improved Skills
+version: '${version}'
+
+main: org.lucma.ImprovedSkills.ImprovedSkills
+paper-plugin-loader: org.lucma.ImprovedSkills.ImprovedSkillsLoader
+api-version: '26.2'
+load: POSTWORLD
+
+authors: [ Lucma ]
+website: https://github.com/lucmadev

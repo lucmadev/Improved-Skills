@@ -5,6 +5,7 @@ main: org.lucma.ImprovedSkills.ImprovedSkills
 paper-plugin-loader: org.lucma.ImprovedSkills.ImprovedSkillsLoader
 api-version: '26.2'
 load: POSTWORLD
+depend: [openRPG]
 
 authors: [ Lucma ]
 website: https://github.com/lucmadev

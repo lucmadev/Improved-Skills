@@ -1,0 +1,1508 @@
+# ============================================================================
+# Improved Skills - Skill Tree Configuration
+# ============================================================================
+# Format: openRPG YAML skill definitions
+# Loaded from: plugins/openRPG/skills.yml
+# ============================================================================
+#
+# BALANCE GUIDELINES:
+# - Damage: 5-8% per tier, max ~40%
+# - Defense: 4-6% per tier, max ~30%
+# - Crit Chance: 2-3% per tier, max ~20%
+# - Crit Damage: 10-15% per tier, max ~80%
+# - Speed: 3-5% per tier, max ~25%
+# - Life Steal: 2-3% per tier, max ~15%
+# - Dodge: 3% per tier, max ~18%
+# - High-tier skills require deep investment (prerequisites)
+# - Cooldowns on powerful effects to prevent spam
+# ============================================================================
+
+skills:
+
+  # ==========================================================================
+  # CLASS: WARRIOR
+  # ==========================================================================
+  # Branch 1: Strength (progressive melee damage)
+  # --------------------------------------------------------------------------
+
+  war_strength_1:
+    name: "Golpe Poderoso"
+    description: "§7+8% melee damage"
+    class: warrior
+    material: IRON_SWORD
+    prerequisites: []
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: damage_bonus
+      config: { bonus: 0.08 }
+
+  war_strength_2:
+    name: "Aplastar"
+    description: "§7+8% melee damage"
+    class: warrior
+    material: DIAMOND_SWORD
+    prerequisites: [war_strength_1]
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: damage_bonus
+      config: { bonus: 0.08 }
+
+  war_strength_3:
+    name: "Furia del Guerrero"
+    description: "§7+8% melee damage\n§8+5% near enemies"
+    class: warrior
+    material: NETHERITE_SWORD
+    prerequisites: [war_strength_2]
+    condition:
+      type: close_enemies
+      config: { radius: 6.0 }
+    effect:
+      type: damage_bonus
+      config: { bonus: 0.08 }
+
+  war_strength_4:
+    name: "Mania de Batalla"
+    description: "§7+8% melee damage\n§8+6% while sprinting"
+    class: warrior
+    material: GOLDEN_SWORD
+    prerequisites: [war_strength_3]
+    condition:
+      type: sprinting
+      config: {}
+    effect:
+      type: damage_bonus
+      config: { bonus: 0.08 }
+
+  war_strength_5:
+    name: "Filo del Titan"
+    description: "§7+10% melee damage\n§8Night only"
+    class: warrior
+    material: NETHERITE_AXE
+    prerequisites: [war_strength_4]
+    condition:
+      type: night_time
+      config: {}
+    effect:
+      type: damage_bonus
+      config: { bonus: 0.10 }
+
+  # Branch 1b: Impact (knockback synergy)
+
+  war_impact_1:
+    name: "Impacto Atronador"
+    description: "§7+15% knockback"
+    class: warrior
+    material: PISTON
+    prerequisites: [war_strength_2]
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: knockback
+      config: { multiplier: 0.15 }
+
+  war_impact_2:
+    name: "Martillazo"
+    description: "§7+20% knockback"
+    class: warrior
+    material: ANVIL
+    prerequisites: [war_impact_1]
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: knockback
+      config: { multiplier: 0.20 }
+
+  war_impact_3:
+    name: "Oleada de Fuerza"
+    description: "§7Area damage 3 blocks (50%)"
+    class: warrior
+    material: IRON_AXE
+    prerequisites: [war_strength_4, war_impact_2]
+    condition:
+      type: close_enemies
+      config: { radius: 4.0 }
+    effect:
+      type: area_damage
+      config: { radius: 3.0, multiplier: 0.50 }
+
+  # --------------------------------------------------------------------------
+  # Branch 2: Defense (survivability)
+  # --------------------------------------------------------------------------
+
+  war_defense_1:
+    name: "Piel de Acero"
+    description: "§7+6% defense"
+    class: warrior
+    material: IRON_CHESTPLATE
+    prerequisites: []
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: defense_bonus
+      config: { bonus: 0.06 }
+
+  war_defense_2:
+    name: "Coraza Reforzada"
+    description: "§7+6% defense"
+    class: warrior
+    material: DIAMOND_CHESTPLATE
+    prerequisites: [war_defense_1]
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: defense_bonus
+      config: { bonus: 0.06 }
+
+  war_defense_3:
+    name: "Muro Viviente"
+    description: "§7+6% defense\n§8+8% while blocking"
+    class: warrior
+    material: SHIELD
+    prerequisites: [war_defense_2]
+    condition:
+      type: blocking
+      config: {}
+    effect:
+      type: defense_bonus
+      config: { bonus: 0.06 }
+
+  war_defense_4:
+    name: "Fortaleza"
+    description: "§7+6% defense\n§8+10% when low HP"
+    class: warrior
+    material: NETHERITE_CHESTPLATE
+    prerequisites: [war_defense_3]
+    condition:
+      type: low_health
+      config: { threshold: 0.30 }
+    effect:
+      type: defense_bonus
+      config: { bonus: 0.06 }
+
+  war_defense_5:
+    name: "Coraza Divina"
+    description: "§7Reduces incoming damage by 1"
+    class: warrior
+    material: ENCHANTED_GOLDEN_APPLE
+    prerequisites: [war_defense_4]
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: damage_reduction
+      config: { flatReduction: 1.0 }
+
+  war_shield_1:
+    name: "Escudo de Espinas"
+    description: "§7Reflects 8% of incoming damage"
+    class: warrior
+    material: CACTUS
+    prerequisites: [war_defense_3]
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: damage_reflect
+      config: { percentage: 0.08 }
+
+  war_shield_2:
+    name: "Reflejo Metalico"
+    description: "§7Reflects 10% of incoming damage"
+    class: warrior
+    material: MAGMA_CREAM
+    prerequisites: [war_shield_1]
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: damage_reflect
+      config: { percentage: 0.10 }
+
+  # --------------------------------------------------------------------------
+  # Branch 3: Berserker (risk-reward, low HP)
+  # --------------------------------------------------------------------------
+
+  war_berserker_1:
+    name: "Sangre de Guerra"
+    description: "§7+20% damage when low HP"
+    class: warrior
+    material: RED_DYE
+    prerequisites: [war_strength_1]
+    condition:
+      type: low_health
+      config: { threshold: 0.30 }
+    effect:
+      type: damage_bonus
+      config: { bonus: 0.20 }
+
+  war_berserker_2:
+    name: "Sed de Sangre"
+    description: "§7+25% damage when low HP"
+    class: warrior
+    material: REDSTONE
+    prerequisites: [war_berserker_1]
+    condition:
+      type: low_health
+      config: { threshold: 0.25 }
+    effect:
+      type: damage_bonus
+      config: { bonus: 0.25 }
+
+  war_berserker_3:
+    name: "Robo de Sangre"
+    description: "§7+4% life steal"
+    class: warrior
+    material: FERMENTED_SPIDER_EYE
+    prerequisites: [war_berserker_1]
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: life_steal
+      config: { percentage: 0.04 }
+
+  war_berserker_4:
+    name: "Vampirismo"
+    description: "§7+5% life steal"
+    class: warrior
+    material: NETHER_WART
+    prerequisites: [war_berserker_3]
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: life_steal
+      config: { percentage: 0.05 }
+
+  war_berserker_5:
+    name: "Sed Insaciable"
+    description: "§7+6% life steal\n§8Doubled when low HP"
+    class: warrior
+    material: CRIMSON_FUNGUS
+    prerequisites: [war_berserker_4]
+    condition:
+      type: low_health
+      config: { threshold: 0.25 }
+    effect:
+      type: life_steal_multiplier
+      config: { multiplier: 2.0 }
+
+  war_rage_1:
+    name: "Estallido de Ira"
+    description: "§7+2% crit chance when hit recently"
+    class: warrior
+    material: BLAZE_POWDER
+    prerequisites: [war_berserker_2, war_defense_3]
+    condition:
+      type: recently_hurt
+      config: { timeWindow: 3 }
+    effect:
+      type: critical_chance
+      config: { chance: 0.02 }
+
+  war_rage_2:
+    name: "Ira Desatada"
+    description: "§7+4% crit chance when hit recently"
+    class: warrior
+    material: BLAZE_ROD
+    prerequisites: [war_rage_1]
+    condition:
+      type: recently_hurt
+      config: { timeWindow: 3 }
+    effect:
+      type: critical_chance
+      config: { chance: 0.04 }
+
+  war_rage_3:
+    name: "Contraataque"
+    description: "§7+3% true damage when hit recently"
+    class: warrior
+    material: TOTEM_OF_UNDYING
+    prerequisites: [war_rage_2, war_shield_1]
+    condition:
+      type: recently_hurt
+      config: { timeWindow: 2 }
+    effect:
+      type: true_damage
+      config: { percentage: 0.03 }
+
+  # --------------------------------------------------------------------------
+  # Branch 4: Tactics (auras, team buffs, utility)
+  # --------------------------------------------------------------------------
+
+  war_tactics_1:
+    name: "Grito de Guerra"
+    description: "§7Allies nearby get +5% damage"
+    class: warrior
+    material: GOAT_HORN
+    prerequisites: []
+    condition:
+      type: close_enemies
+      config: { radius: 8.0 }
+    effect:
+      type: damage_bonus
+      config: { bonus: 0.05 }
+
+  war_tactics_2:
+    name: "Orden Cerrada"
+    description: "§7Allies nearby get +4% defense"
+    class: warrior
+    material: BONE
+    prerequisites: [war_tactics_1]
+    condition:
+      type: close_enemies
+      config: { radius: 8.0 }
+    effect:
+      type: defense_bonus
+      config: { bonus: 0.04 }
+
+  war_tactics_3:
+    name: "Carga Imparable"
+    description: "§7+15% damage while sprinting"
+    class: warrior
+    material: SADDLE
+    prerequisites: [war_tactics_1]
+    condition:
+      type: sprinting
+      config: {}
+    effect:
+      type: charge
+      config: { bonusMultiplier: 0.15 }
+
+  war_tactics_4:
+    name: "Carga Destructiva"
+    description: "§7+20% damage while sprinting"
+    class: warrior
+    material: HORSE_ARMOR_IRON
+    prerequisites: [war_tactics_3]
+    condition:
+      type: sprinting
+      config: {}
+    effect:
+      type: charge
+      config: { bonusMultiplier: 0.20 }
+
+  war_tactics_5:
+    name: "Formacion de Batalla"
+    description: "§7+8% defense when allies are near"
+    class: warrior
+    material: IRON_BLOCK
+    prerequisites: [war_tactics_2, war_defense_3]
+    condition:
+      type: no_enemies
+      config: { radius: 8.0 }
+    effect:
+      type: defense_bonus
+      config: { bonus: 0.08 }
+
+  war_command_1:
+    name: "Liderato"
+    description: "§7Gives speed to nearby allies"
+    class: warrior
+    material: FEATHER
+    prerequisites: [war_tactics_2]
+    condition:
+      type: close_enemies
+      config: { radius: 8.0 }
+    effect:
+      type: speed_aura
+      config: { radius: 8.0, amplifier: 1 }
+
+  war_command_2:
+    name: "Inspiracion Letal"
+    description: "§7Grants Strength I for 5s on kill"
+    class: warrior
+    material: NETHER_STAR
+    prerequisites: [war_tactics_4, war_command_1]
+    condition:
+      type: last_hit_killer
+      config: {}
+    effect:
+      type: strength
+      config: { duration: 5, amplifier: 1 }
+
+  # --------------------------------------------------------------------------
+  # Branch 5: Weapons (execution, precision)
+  # --------------------------------------------------------------------------
+
+  war_weapon_1:
+    name: "Golpe Letal"
+    description: "§7+30% damage to low HP enemies"
+    class: warrior
+    material: ENDER_PEARL
+    prerequisites: [war_strength_2]
+    condition:
+      type: target_low_health
+      config: { threshold: 0.30 }
+    effect:
+      type: execute
+      config: { bonusMultiplier: 0.30, threshold: 0.30 }
+
+  war_weapon_2:
+    name: "Ejecucion"
+    description: "§7+40% damage to low HP enemies"
+    class: warrior
+    material: ENDER_EYE
+    prerequisites: [war_weapon_1]
+    condition:
+      type: target_low_health
+      config: { threshold: 0.25 }
+    effect:
+      type: execute
+      config: { bonusMultiplier: 0.40, threshold: 0.25 }
+
+  war_weapon_3:
+    name: "Rompe Escudos"
+    description: "§7Ignores 30% of enemy defense"
+    class: warrior
+    material: SHEARS
+    prerequisites: [war_strength_3, war_weapon_1]
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: shield_breaker
+      config: { bonusMultiplier: 0.30 }
+
+  war_weapon_4:
+    name: "Rompe Armaduras"
+    description: "§7Ignores 45% of enemy defense"
+    class: warrior
+    material: DIAMOND_PICKAXE
+    prerequisites: [war_weapon_3]
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: shield_breaker
+      config: { bonusMultiplier: 0.45 }
+
+  war_weapon_5:
+    name: "Golpe de Gracia"
+    description: "§7+5% crit chance\n§7+25% crit damage"
+    class: warrior
+    material: ENCHANTED_BOOK
+    prerequisites: [war_weapon_4, war_rage_2]
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: critical_damage
+      config: { bonus: 0.25 }
+
+  # ==========================================================================
+  # CLASS: MAGE
+  # ==========================================================================
+  # Branch 1: Fire (direct damage, burns, explosions)
+  # --------------------------------------------------------------------------
+
+  mag_fire_1:
+    name: "Chispa"
+    description: "§7+7% fire damage"
+    class: mage
+    material: BLAZE_ROD
+    prerequisites: []
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: damage_bonus
+      config: { bonus: 0.07 }
+
+  mag_fire_2:
+    name: "Llama Ardiente"
+    description: "§7+7% damage\n§7Burns 2s on hit"
+    class: mage
+    material: FLINT_AND_STEEL
+    prerequisites: [mag_fire_1]
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: damage_bonus
+      config: { bonus: 0.07 }
+
+  mag_fire_3:
+    name: "Combustion"
+    description: "§7+7% damage\n§7Burns 3s on hit"
+    class: mage
+    material: BLAZE_POWDER
+    prerequisites: [mag_fire_2]
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: damage_bonus
+      config: { bonus: 0.07 }
+
+  mag_fire_4:
+    name: "Infierno"
+    description: "§7+25% damage vs burning targets"
+    class: mage
+    material: NETHERITE_SCRAP
+    prerequisites: [mag_fire_3]
+    condition:
+      type: has_potion_effect
+      config: {}
+    effect:
+      type: execute
+      config: { bonusMultiplier: 0.25, threshold: 1.0 }
+
+  mag_burn_1:
+    name: "Quemadura"
+    description: "§7Burns 3s (DoT 1/s)"
+    class: mage
+    material: FIRE_CHARGE
+    prerequisites: [mag_fire_2]
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: fire_aura
+      config: { duration: 3, cooldown: 0 }
+
+  mag_burn_2:
+    name: "Piroclasma"
+    description: "§7Burns 5s (DoT 1.5/s)"
+    class: mage
+    material: FIREWORK_ROCKET
+    prerequisites: [mag_burn_1]
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: fire_aura
+      config: { duration: 5, cooldown: 0 }
+
+  mag_burn_3:
+    name: "Explosion"
+    description: "§7Explosion power 2 on hit"
+    class: mage
+    material: TNT
+    prerequisites: [mag_fire_3, mag_burn_2]
+    condition:
+      type: random
+      config: { chance: 0.20 }
+    effect:
+      type: explosion
+      config: { power: 2.0, fire: true }
+
+  # --------------------------------------------------------------------------
+  # Branch 2: Ice (control, debuffs, slow)
+  # --------------------------------------------------------------------------
+
+  mag_ice_1:
+    name: "Escarcha"
+    description: "§7Slows 1s on hit"
+    class: mage
+    material: SNOWBALL
+    prerequisites: []
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: slowness
+      config: { duration: 1, amplifier: 1 }
+
+  mag_ice_2:
+    name: "Ventisca"
+    description: "§7Slows 2s on hit"
+    class: mage
+    material: ICE
+    prerequisites: [mag_ice_1]
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: slowness
+      config: { duration: 2, amplifier: 1 }
+
+  mag_ice_3:
+    name: "Coraza Helada"
+    description: "§7+6% defense when enemies nearby"
+    class: mage
+    material: PACKED_ICE
+    prerequisites: [mag_ice_2]
+    condition:
+      type: close_enemies
+      config: { radius: 6.0 }
+    effect:
+      type: defense_bonus
+      config: { bonus: 0.06 }
+
+  mag_ice_4:
+    name: "Congelacion"
+    description: "§7Slows 3s (amplifier 2)"
+    class: mage
+    material: BLUE_ICE
+    prerequisites: [mag_ice_3]
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: slowness
+      config: { duration: 3, amplifier: 2 }
+
+  mag_ice_5:
+    name: "Corazon Helado"
+    description: "§7+6% damage at night"
+    class: mage
+    material: SOUL_LANTERN
+    prerequisites: [mag_ice_4]
+    condition:
+      type: night_time
+      config: {}
+    effect:
+      type: damage_bonus
+      config: { bonus: 0.06 }
+
+  mag_frost_1:
+    name: "Tormenta de Nieve"
+    description: "§7Chain damage 3 targets (60%)"
+    class: mage
+    material: SNOW_BLOCK
+    prerequisites: [mag_ice_3]
+    condition:
+      type: close_enemies
+      config: { radius: 6.0 }
+    effect:
+      type: chain_damage
+      config: { radius: 5.0, maxTargets: 3, multiplier: 0.60 }
+
+  mag_frost_2:
+    name: "Nueva Glacial"
+    description: "§7Chain damage 5 targets (70%)"
+    class: mage
+    material: ICE_SPIKE
+    prerequisites: [mag_frost_1]
+    condition:
+      type: close_enemies
+      config: { radius: 6.0 }
+    effect:
+      type: chain_damage
+      config: { radius: 6.0, maxTargets: 5, multiplier: 0.70 }
+
+  # --------------------------------------------------------------------------
+  # Branch 3: Lightning (AoE, magic crits)
+  # --------------------------------------------------------------------------
+
+  mag_lightning_1:
+    name: "Descarga"
+    description: "§7+5% damage"
+    class: mage
+    material: GUNPOWDER
+    prerequisites: []
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: damage_bonus
+      config: { bonus: 0.05 }
+
+  mag_lightning_2:
+    name: "Sobrecarga"
+    description: "§7+5% damage"
+    class: mage
+    material: REDSTONE_BLOCK
+    prerequisites: [mag_lightning_1]
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: damage_bonus
+      config: { bonus: 0.05 }
+
+  mag_lightning_3:
+    name: "Tormenta Electrica"
+    description: "§7+5% damage"
+    class: mage
+    material: LIGHTNING_ROD
+    prerequisites: [mag_lightning_2]
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: damage_bonus
+      config: { bonus: 0.05 }
+
+  mag_lightning_4:
+    name: "Rayo"
+    description: "§7Strikes lightning (5 damage) on hit"
+    class: mage
+    material: TRIDENT
+    prerequisites: [mag_lightning_3]
+    condition:
+      type: random
+      config: { chance: 0.20 }
+    effect:
+      type: lightning_strike
+      config: { damage: 5.0 }
+
+  mag_lightning_5:
+    name: "Tormenta Divina"
+    description: "§7Strikes lightning (8 damage) on hit"
+    class: mage
+    material: HEART_OF_THE_SEA
+    prerequisites: [mag_lightning_4]
+    condition:
+      type: random
+      config: { chance: 0.25 }
+    effect:
+      type: lightning_strike
+      config: { damage: 8.0 }
+
+  mag_storm_1:
+    name: "Carga Estatica"
+    description: "§7+4% magic crit chance"
+    class: mage
+    material: PRISMARINE_CRYSTALS
+    prerequisites: [mag_lightning_2]
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: critical_chance
+      config: { chance: 0.04 }
+
+  mag_storm_2:
+    name: "Tormenta Letal"
+    description: "§7+40% crit damage"
+    class: mage
+    material: AMETHYST_SHARD
+    prerequisites: [mag_lightning_3, mag_storm_1]
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: critical_damage
+      config: { bonus: 0.40 }
+
+  # --------------------------------------------------------------------------
+  # Branch 4: Shadow (debuffs, weakness, curses)
+  # --------------------------------------------------------------------------
+
+  mag_shadow_1:
+    name: "Sombra Oscura"
+    description: "§7Applies Weakness I (3s)"
+    class: mage
+    material: BLACK_DYE
+    prerequisites: []
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: weakness
+      config: { duration: 3, amplifier: 1 }
+
+  mag_shadow_2:
+    name: "Maldicion"
+    description: "§7Applies Weakness II (3s)"
+    class: mage
+    material: WITHER_ROSE
+    prerequisites: [mag_shadow_1]
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: weakness
+      config: { duration: 3, amplifier: 2 }
+
+  mag_shadow_3:
+    name: "Ceguera"
+    description: "§7Applies Blindness (2s)"
+    class: mage
+    material: INK_SAC
+    prerequisites: [mag_shadow_2]
+    condition:
+      type: random
+      config: { chance: 0.30 }
+    effect:
+      type: blindness
+      config: { duration: 2 }
+
+  mag_shadow_4:
+    name: "Miedo"
+    description: "§7Applies Nausea (3s)"
+    class: mage
+    material: SPIDER_EYE
+    prerequisites: [mag_shadow_3]
+    condition:
+      type: random
+      config: { chance: 0.25 }
+    effect:
+      type: nausea
+      config: { duration: 3 }
+
+  mag_curse_1:
+    name: "Drenar Vida"
+    description: "§7+4% life steal"
+    class: mage
+    material: CRIMSON_NYLIUM
+    prerequisites: [mag_shadow_2]
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: life_steal
+      config: { percentage: 0.04 }
+
+  mag_curse_2:
+    name: "Drenar Alma"
+    description: "§7+5% life steal"
+    class: mage
+    material: WARPED_NYLIUM
+    prerequisites: [mag_curse_1]
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: life_steal
+      config: { percentage: 0.05 }
+
+  mag_curse_3:
+    name: "Toque de la Muerte"
+    description: "§7Applies Wither I (3s)"
+    class: mage
+    material: WITHER_SKELETON_SKULL
+    prerequisites: [mag_shadow_4, mag_curse_2]
+    condition:
+      type: random
+      config: { chance: 0.25 }
+    effect:
+      type: wither
+      config: { duration: 3, amplifier: 1 }
+
+  # --------------------------------------------------------------------------
+  # Branch 5: Light (healing, buffs, support)
+  # --------------------------------------------------------------------------
+
+  mag_light_1:
+    name: "Luz Sanadora"
+    description: "§7Heals 1 heart on hit"
+    class: mage
+    material: GLOWSTONE_DUST
+    prerequisites: []
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: heal
+      config: { amount: 2.0 }
+
+  mag_light_2:
+    name: "Aura Curativa"
+    description: "§7Heals 1.5 hearts on hit"
+    class: mage
+    material: GLOWSTONE
+    prerequisites: [mag_light_1]
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: heal
+      config: { amount: 3.0 }
+
+  mag_light_3:
+    name: "Regeneracion"
+    description: "§7Regeneration I for 4s on hit"
+    class: mage
+    material: GHAST_TEAR
+    prerequisites: [mag_light_2]
+    condition:
+      type: low_health
+      config: { threshold: 0.50 }
+    effect:
+      type: regeneration
+      config: { duration: 4, amplifier: 1 }
+
+  mag_light_4:
+    name: "Plegaria de Vida"
+    description: "§7Regeneration II for 5s on hit"
+    class: mage
+    material: TOTEM_OF_UNDYING
+    prerequisites: [mag_light_3]
+    condition:
+      type: low_health
+      config: { threshold: 0.30 }
+    effect:
+      type: regeneration
+      config: { duration: 5, amplifier: 2 }
+
+  mag_light_5:
+    name: "Escudo Sagrado"
+    description: "§7Absorption 4 hearts on hit"
+    class: mage
+    material: SHIELD
+    prerequisites: [mag_light_3]
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: absorption
+      config: { hearts: 4.0 }
+
+  mag_holy_1:
+    name: "Purificacion"
+    description: "§7Fire resistance 15s"
+    class: mage
+    material: MAGMA_CREAM
+    prerequisites: [mag_light_2]
+    condition:
+      type: in_combat
+      config: { timeSinceHit: 5 }
+    effect:
+      type: fire_resistance
+      config: { duration: 15 }
+
+  mag_holy_2:
+    name: "Bendicion"
+    description: "§7Strength I for 8s on kill"
+    class: mage
+    material: EXPERIENCE_BOTTLE
+    prerequisites: [mag_light_4, mag_holy_1]
+    condition:
+      type: last_hit_killer
+      config: {}
+    effect:
+      type: strength
+      config: { duration: 8, amplifier: 1 }
+
+  # ==========================================================================
+  # CLASS: ASSASSIN
+  # ==========================================================================
+  # Branch 1: Stealth (invisibility, ambushes)
+  # --------------------------------------------------------------------------
+
+  ass_stealth_1:
+    name: "Sombras"
+    description: "§7+5% damage while sneaking"
+    class: assassin
+    material: GRAY_DYE
+    prerequisites: []
+    condition:
+      type: sneaking
+      config: {}
+    effect:
+      type: damage_bonus
+      config: { bonus: 0.05 }
+
+  ass_stealth_2:
+    name: "Sigilo Mortal"
+    description: "§7+5% damage while sneaking"
+    class: assassin
+    material: BLACK_DYE
+    prerequisites: [ass_stealth_1]
+    condition:
+      type: sneaking
+      config: {}
+    effect:
+      type: damage_bonus
+      config: { bonus: 0.05 }
+
+  ass_stealth_3:
+    name: "Invisibilidad"
+    description: "§7Invisibility 5s while sneaking"
+    class: assassin
+    material: PHANTOM_MEMBRANE
+    prerequisites: [ass_stealth_2]
+    condition:
+      type: sneaking
+      config: {}
+    effect:
+      type: invisibility
+      config: { duration: 5 }
+
+  ass_stealth_4:
+    name: "Maestro del Sigilo"
+    description: "§7Invisibility 8s while sneaking"
+    class: assassin
+    material: GHOST_MEMBRANE
+    prerequisites: [ass_stealth_3]
+    condition:
+      type: sneaking
+      config: {}
+    effect:
+      type: invisibility
+      config: { duration: 8 }
+
+  ass_shadow_1:
+    name: "Paso Sombreo"
+    description: "§7+5% speed while sneaking"
+    class: assassin
+    material: FEATHER
+    prerequisites: [ass_stealth_2]
+    condition:
+      type: sneaking
+      config: {}
+    effect:
+      type: speed_bonus
+      config: { bonus: 0.05 }
+
+  ass_shadow_2:
+    name: "Sombra Veloz"
+    description: "§7+8% speed while sneaking"
+    class: assassin
+    material: SUGAR
+    prerequisites: [ass_shadow_1]
+    condition:
+      type: sneaking
+      config: {}
+    effect:
+      type: speed_bonus
+      config: { bonus: 0.08 }
+
+  ass_shadow_3:
+    name: "Salto Sombrio"
+    description: "§7+50% jump height while sneaking"
+    class: assassin
+    material: RABBIT_FOOT
+    prerequisites: [ass_shadow_2]
+    condition:
+      type: sneaking
+      config: {}
+    effect:
+      type: jump_boost
+      config: { multiplier: 0.50 }
+
+  # --------------------------------------------------------------------------
+  # Branch 2: Criticals (burst damage, precision)
+  # --------------------------------------------------------------------------
+
+  ass_crit_1:
+    name: "Ojo de Halcon"
+    description: "§7+3% crit chance"
+    class: assassin
+    material: ARROW
+    prerequisites: []
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: critical_chance
+      config: { chance: 0.03 }
+
+  ass_crit_2:
+    name: "Mira Letal"
+    description: "§7+3% crit chance"
+    class: assassin
+    material: SPECTRAL_ARROW
+    prerequisites: [ass_crit_1]
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: critical_chance
+      config: { chance: 0.03 }
+
+  ass_crit_3:
+    name: "Golpe Certero"
+    description: "§7+3% crit chance"
+    class: assassin
+    material: TIPPED_ARROW
+    prerequisites: [ass_crit_2]
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: critical_chance
+      config: { chance: 0.03 }
+
+  ass_crit_4:
+    name: "Pinchar"
+    description: "§7+30% crit damage"
+    class: assassin
+    material: FLINT
+    prerequisites: [ass_crit_3]
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: critical_damage
+      config: { bonus: 0.30 }
+
+  ass_crit_5:
+    name: "Perforar"
+    description: "§7+40% crit damage"
+    class: assassin
+    material: OBSIDIAN
+    prerequisites: [ass_crit_4]
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: critical_damage
+      config: { bonus: 0.40 }
+
+  ass_precision_1:
+    name: "Precision Mortal"
+    description: "§7+3% crit chance near enemies"
+    class: assassin
+    material: ENDER_EYE
+    prerequisites: [ass_crit_3]
+    condition:
+      type: close_enemies
+      config: { radius: 5.0 }
+    effect:
+      type: critical_chance
+      config: { chance: 0.03 }
+
+  ass_precision_2:
+    name: "Punalada Certera"
+    description: "§7+40% crit damage"
+    class: assassin
+    material: NETHERITE_INGOT
+    prerequisites: [ass_crit_5, ass_precision_1]
+    condition:
+      type: close_enemies
+      config: { radius: 5.0 }
+    effect:
+      type: critical_damage
+      config: { bonus: 0.40 }
+
+  # --------------------------------------------------------------------------
+  # Branch 3: Poison (DoT, weakening)
+  # --------------------------------------------------------------------------
+
+  ass_poison_1:
+    name: "Veneno Letal"
+    description: "§7Poison I for 3s on hit"
+    class: assassin
+    material: POISONOUS_POTATO
+    prerequisites: []
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: poison
+      config: { duration: 3, amplifier: 1 }
+
+  ass_poison_2:
+    name: "Toxina"
+    description: "§7Poison II for 3s on hit"
+    class: assassin
+    material: FERMENTED_SPIDER_EYE
+    prerequisites: [ass_poison_1]
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: poison
+      config: { duration: 3, amplifier: 2 }
+
+  ass_poison_3:
+    name: "Sangria"
+    description: "§7Bleed 3s (1 damage/s)"
+    class: assassin
+    material: REDSTONE
+    prerequisites: [ass_poison_2]
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: bleed
+      config: { duration: 3, damagePerTick: 1.0 }
+
+  ass_poison_4:
+    name: "Hemorragia Grave"
+    description: "§7Bleed 4s (1.5 damage/s)"
+    class: assassin
+    material: NETHER_WART_BLOCK
+    prerequisites: [ass_poison_3]
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: bleed
+      config: { duration: 4, damagePerTick: 1.5 }
+
+  ass_toxin_1:
+    name: "Veneno Corrosivo"
+    description: "§7Weakness I for 3s on hit"
+    class: assassin
+    material: SLIME_BALL
+    prerequisites: [ass_poison_2]
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: weakness
+      config: { duration: 3, amplifier: 1 }
+
+  ass_toxin_2:
+    name: "Lentitud Paralizante"
+    description: "§7Slows 2s on hit"
+    class: assassin
+    material: ICE
+    prerequisites: [ass_toxin_1]
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: slowness
+      config: { duration: 2, amplifier: 1 }
+
+  ass_toxin_3:
+    name: "Inanicion"
+    description: "§7Hunger I for 4s on hit"
+    class: assassin
+    material: ROTTEN_FLESH
+    prerequisites: [ass_toxin_2]
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: hunger_effect
+      config: { duration: 4, amplifier: 1 }
+
+  ass_toxin_4:
+    name: "Paralisis Total"
+    description: "§7Stuns 1s on hit"
+    class: assassin
+    material: HONEY_BLOCK
+    prerequisites: [ass_poison_4, ass_toxin_3]
+    condition:
+      type: random
+      config: { chance: 0.20 }
+    effect:
+      type: stun
+      config: { duration: 1 }
+
+  # --------------------------------------------------------------------------
+  # Branch 4: Evasion (mobility, dodge, escape)
+  # --------------------------------------------------------------------------
+
+  ass_evasion_1:
+    name: "Agilidad"
+    description: "§7+4% dodge chance"
+    class: assassin
+    material: LEATHER_BOOTS
+    prerequisites: []
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: dodge
+      config: { chance: 0.04 }
+
+  ass_evasion_2:
+    name: "Reflejos"
+    description: "§7+4% dodge chance"
+    class: assassin
+    material: CHAINMAIL_BOOTS
+    prerequisites: [ass_evasion_1]
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: dodge
+      config: { chance: 0.04 }
+
+  ass_evasion_3:
+    name: "Movimiento Felino"
+    description: "§7+4% dodge chance"
+    class: assassin
+    material: IRON_BOOTS
+    prerequisites: [ass_evasion_2]
+    condition:
+      type: always
+      config: {}
+    effect:
+      type: dodge
+      config: { chance: 0.04 }
+
+  ass_evasion_4:
+    name: "Instinto de Supervivencia"
+    description: "§7+4% dodge when low HP"
+    class: assassin
+    material: GOLDEN_BOOTS
+    prerequisites: [ass_evasion_3]
+    condition:
+      type: low_health
+      config: { threshold: 0.30 }
+    effect:
+      type: dodge
+      config: { chance: 0.04 }
+
+  ass_dodge_1:
+    name: "Caida Suave"
+    description: "§7Slow fall 3s when falling"
+    class: assassin
+    material: FEATHER
+    prerequisites: [ass_evasion_2]
+    condition:
+      type: fall_distance
+      config: { minDistance: 3.0 }
+    effect:
+      type: slow_fall
+      config: { duration: 3 }
+
+  ass_dodge_2:
+    name: "Impulso Repentino"
+    description: "§7Dashes 5 blocks when hit"
+    class: assassin
+    material: FIREWORK_ROCKET
+    prerequisites: [ass_evasion_3, ass_dodge_1]
+    condition:
+      type: recently_hurt
+      config: { timeWindow: 2 }
+    effect:
+      type: dash
+      config: { distance: 5.0 }
+
+  ass_dodge_3:
+    name: "Sombras Esquivas"
+    description: "§7Invulnerability 1.5s when dodging"
+    class: assassin
+    material: ENDER_PEARL
+    prerequisites: [ass_evasion_4, ass_dodge_2]
+    condition:
+      type: random
+      config: { chance: 0.15 }
+    effect:
+      type: invulnerability
+      config: { duration: 1.5 }
+
+  # --------------------------------------------------------------------------
+  # Branch 5: Blood (assassinations, ambushes, executions)
+  # --------------------------------------------------------------------------
+
+  ass_blood_1:
+    name: "Acechar"
+    description: "§7+40% damage from behind"
+    class: assassin
+    material: BONE
+    prerequisites: []
+    condition:
+      type: behind_target
+      config: {}
+    effect:
+      type: backstab
+      config: { bonusMultiplier: 0.40 }
+
+  ass_blood_2:
+    name: "Punalada Trapera"
+    description: "§7+50% damage from behind"
+    class: assassin
+    material: BONE_MEAL
+    prerequisites: [ass_blood_1]
+    condition:
+      type: behind_target
+      config: {}
+    effect:
+      type: backstab
+      config: { bonusMultiplier: 0.50 }
+
+  ass_blood_3:
+    name: "Degollar"
+    description: "§7+60% damage from behind"
+    class: assassin
+    material: SKELETON_SKULL
+    prerequisites: [ass_blood_2]
+    condition:
+      type: behind_target
+      config: {}
+    effect:
+      type: backstab
+      config: { bonusMultiplier: 0.60 }
+
+  ass_blood_4:
+    name: "Ejecutar"
+    description: "§7+50% damage to low HP enemies"
+    class: assassin
+    material: WITHER_SKELETON_SKULL
+    prerequisites: [ass_crit_4, ass_blood_3]
+    condition:
+      type: target_low_health
+      config: { threshold: 0.30 }
+    effect:
+      type: execute
+      config: { bonusMultiplier: 0.50, threshold: 0.30 }
+
+  ass_assassinate_1:
+    name: "Asesinato"
+    description: "§7+60% damage to low HP enemies"
+    class: assassin
+    material: DRAGON_BREATH
+    prerequisites: [ass_blood_4]
+    condition:
+      type: target_low_health
+      config: { threshold: 0.25 }
+    effect:
+      type: execute
+      config: { bonusMultiplier: 0.60, threshold: 0.25 }
+
+  ass_assassinate_2:
+    name: "Golpe de Sombra"
+    description: "§7+4% true damage while sneaking"
+    class: assassin
+    material: DRAGON_EGG
+    prerequisites: [ass_assassinate_1, ass_precision_2]
+    condition:
+      type: sneaking
+      config: {}
+    effect:
+      type: true_damage
+      config: { percentage: 0.04 }
+
+  # --------------------------------------------------------------------------
+  # Mastery Skills (end-game, 1 per class)
+  # --------------------------------------------------------------------------
+
+  war_mastery:
+    name: "Maestria: Titan de Batalla"
+    description: "§6§l!!§r §7+12% damage\n§7+12% defense\n§7Requires level 30+"
+    class: warrior
+    material: NETHERITE_BLOCK
+    prerequisites:
+      - war_strength_5
+      - war_defense_5
+      - war_command_2
+      - war_weapon_5
+    condition:
+      type: player_level
+      config: { minLevel: 30, maxLevel: -1 }
+    effect:
+      type: damage_bonus
+      config: { bonus: 0.12 }
+
+  mag_mastery:
+    name: "Maestria: Archimago"
+    description: "§6§l!!§r §7+12% damage\n§7+10% crit\n§7Requires level 30+"
+    class: mage
+    material: ENDER_CHEST
+    prerequisites:
+      - mag_fire_4
+      - mag_ice_5
+      - mag_lightning_5
+      - mag_holy_2
+    condition:
+      type: player_level
+      config: { minLevel: 30, maxLevel: -1 }
+    effect:
+      type: damage_bonus
+      config: { bonus: 0.12 }
+
+  ass_mastery:
+    name: "Maestria: Sombra Eterna"
+    description: "§6§l!!§r §7+15% crit damage\n§7Requires level 30+"
+    class: assassin
+    material: DRAGON_HEAD
+    prerequisites:
+      - ass_stealth_4
+      - ass_crit_5
+      - ass_assassinate_2
+      - ass_dodge_3
+    condition:
+      type: player_level
+      config: { minLevel: 30, maxLevel: -1 }
+    effect:
+      type: critical_damage
+      config: { bonus: 0.15 }

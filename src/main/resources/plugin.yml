@@ -1,4 +1,4 @@
-name: Improved Skills
+name: Improved-Skills
 version: '${version}'
 
 main: org.lucma.ImprovedSkills.ImprovedSkills

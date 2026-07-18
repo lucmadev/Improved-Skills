@@ -1,1 +1,1 @@
-rootProject.name = "Improved Skills"
+rootProject.name = "Improved-Skills"

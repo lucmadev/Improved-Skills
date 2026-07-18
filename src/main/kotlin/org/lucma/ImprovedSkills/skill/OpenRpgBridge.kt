@@ -53,9 +53,6 @@ class OpenRpgBridge(private val plugin: Plugin) {
             createEffectMethod = openRpgApiClass.getMethod("createEffect", String::class.java, Map::class.java)
 
             // Resolve registerSkill overload: registerSkill(String, String, String, String, Condition, Effect, Material, List)
-            val conditionInterface = Class.forName("org.lucma.openRPG.api.Condition")
-            val effectInterface = Class.forName("org.lucma.openRPG.api.Effect")
-
             for (method in openRpgApiClass.methods) {
                 if (method.name == "registerSkill" && method.parameterCount == 8) {
                     registerSkillMethod = method
